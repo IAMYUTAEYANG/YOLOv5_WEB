@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLOv5 Object Detection</title>
+</head>
+<body>
+    <h1>YOLOv5 Object Detection</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Capture</button>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <img id="capturedImage" src="#" alt="Captured Image" style="display: none;">
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="/predict">
+        <input type="hidden" name="imageData" id="imageData">
+        <input type="submit" value="Upload">
+    </form>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const capturedImage = document.getElementById('capturedImage');
+        const imageData = document.getElementById('imageData');
+        const snap = document.getElementById('snap');
+        const uploadForm = document.getElementById('uploadForm');
+        const context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.error("Error accessing the camera: ", err);
+            });
+
+        snap.addEventListener('click', () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/png');
+            capturedImage.src = dataUrl;
+            imageData.value = dataUrl;
+            capturedImage.style.display = 'block';
+            uploadForm.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
