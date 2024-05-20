@@ -14,10 +14,11 @@ pip install -r requirements.txt
 python version = 3.9
 
 3. yolov5모델 pt파일 확인하기
+- 이 파일에선 yolov5s.pt를 사용
 
-4. serve.py파일에서 런.
+5. serve.py파일에서 런.
 
-5. 동작 순서
+6. 동작 순서
    카메라에 객체를 인식시키고 캡처 버튼 -> 업로드 버튼 -> 객체에 바운딩 박스가 생성  -> 뒤로가기 버튼
 
 
